@@ -28,4 +28,6 @@ class HostActivity : AppCompatActivity() {
         val navController = Navigation.findNavController(this,R.id.bottom_nav_host)
         NavigationUI.setupWithNavController(binding.bottomNavigation,navController)
     }
+
+
 }

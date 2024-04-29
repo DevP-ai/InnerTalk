@@ -7,17 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.developer.android.dev.freakycode.androidapp.innertalk.adapter.ExpertsAdapter
 import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentExpertBinding
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.User
 import com.developer.android.dev.freakycode.androidapp.innertalk.viewmodel.AuthViewmodel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.math.exp
 
 
 @AndroidEntryPoint
@@ -26,6 +24,7 @@ class ExpertFragment : Fragment() {
     private val authViewmodel by viewModels<AuthViewmodel>()
     private lateinit var expertsAdapter : ExpertsAdapter
     private var expertsList:List<User>?=null
+//    private var expertDataJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +38,8 @@ class ExpertFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        authViewmodel.getAllExperts()
 
         bindObserver()
         bindRecyclerView()
@@ -73,6 +74,13 @@ class ExpertFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        authViewmodel.getAllExperts()
+//        viewLifecycleOwner.lifecycleScope.launch {
+//
+//        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 }

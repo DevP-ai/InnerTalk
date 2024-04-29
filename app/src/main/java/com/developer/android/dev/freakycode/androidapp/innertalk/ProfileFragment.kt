@@ -17,12 +17,14 @@ import androidx.lifecycle.lifecycleScope
 import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentProfileBinding
 import com.developer.android.dev.freakycode.androidapp.innertalk.viewmodel.AuthViewmodel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding:FragmentProfileBinding
     private val authViewmodel by viewModels<AuthViewmodel>()
+//    private var userDataJob: Job? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +36,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        authViewmodel.getUserData()
 
         bindObserver()
 
@@ -90,6 +94,13 @@ class ProfileFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        authViewmodel.getUserData()
+//       viewLifecycleOwner.lifecycleScope.launch {
+//
+//        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 }

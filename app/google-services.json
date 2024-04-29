@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "576754111508",
+    "project_id": "innertalk-therapy",
+    "storage_bucket": "innertalk-therapy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576754111508:android:66547429fa3fa406b84301",
+        "android_client_info": {
+          "package_name": "com.developer.android.dev.freakycode.androidapp.innertalk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKdoR5H88mQlZanzrXZkuyumSNzMYgd_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

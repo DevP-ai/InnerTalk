@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav"
+    app:startDestination="@id/clientRegistrationFragment">
+
+    <fragment
+        android:id="@+id/clientRegistrationFragment"
+        android:name="com.developer.android.dev.freakycode.androidapp.innertalk.ClientRegistrationFragment"
+        android:label="fragment_client_registration"
+        tools:layout="@layout/fragment_client_registration" />
+    <fragment
+        android:id="@+id/therapistRegistrationFragment"
+        android:name="com.developer.android.dev.freakycode.androidapp.innertalk.TherapistRegistrationFragment"
+        android:label="fragment_therapist_registration"
+        tools:layout="@layout/fragment_therapist_registration" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.developer.android.dev.freakycode.androidapp.innertalk.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+</navigation>

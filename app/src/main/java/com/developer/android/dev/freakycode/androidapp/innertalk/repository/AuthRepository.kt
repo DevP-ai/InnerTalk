@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.google.firebase.database.database
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -36,6 +37,7 @@ class AuthRepository {
 
         try {
             val result = auth.createUserWithEmailAndPassword(email, password).await()
+            user.id = auth.currentUser!!.uid
             fireStoreDatabase.collection("Users")
                 .document(auth.currentUser!!.uid)
                 .set(user)
@@ -88,6 +90,35 @@ class AuthRepository {
             } catch (e: Exception) {
                 emit(NetworkResult.Error(e.localizedMessage ?: ""))
             }
+        }
+    }
+
+    fun getAllExperts():Flow<NetworkResult<List<User>>> = flow {
+        emit(NetworkResult.Loading())
+
+        try {
+            val snapshot = fireStoreDatabase.collection("Users")
+                .get()
+                .await()
+
+            val userList = mutableListOf<User>()
+
+            for (document in snapshot.documents){
+                val user = document.toObject(User::class.java)
+                user?.let {
+                    userList.add(it)
+                }
+            }
+            emit(NetworkResult.Success(data = userList.toList()))
+
+        }catch (e: IOException) {
+            emit(
+                NetworkResult.Error(
+                    message = e.localizedMessage ?: "Check Your Internet Connection"
+                )
+            )
+        } catch (e: Exception) {
+            emit(NetworkResult.Error(e.localizedMessage ?: ""))
         }
     }
 

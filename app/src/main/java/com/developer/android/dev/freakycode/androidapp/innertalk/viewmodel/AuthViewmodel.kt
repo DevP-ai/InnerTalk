@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.User
 import com.developer.android.dev.freakycode.androidapp.innertalk.repository.AuthRepository
+import com.developer.android.dev.freakycode.androidapp.innertalk.utils.AllUserState
 import com.developer.android.dev.freakycode.androidapp.innertalk.utils.AuthState
 import com.developer.android.dev.freakycode.androidapp.innertalk.utils.NetworkResult
 import com.developer.android.dev.freakycode.androidapp.innertalk.utils.UserState
@@ -23,6 +24,9 @@ class AuthViewmodel @Inject constructor(private val authRepository: AuthReposito
 
     private val _userData = MutableStateFlow(UserState())
     val userData: StateFlow<UserState> = _userData
+
+    private val _expertData = MutableStateFlow(AllUserState())
+    val expertData: StateFlow<AllUserState> = _expertData
 
 
     fun registerUser(email:String,password:String,user: User){
@@ -73,6 +77,21 @@ class AuthViewmodel @Inject constructor(private val authRepository: AuthReposito
         }.launchIn(viewModelScope)
     }
 
+    fun getAllExperts(){
+        authRepository.getAllExperts().onEach {
+            when(it){
+                is NetworkResult.Loading->{
+                    _expertData.value = AllUserState(isLoading = true)
+                }
+                is NetworkResult.Error ->{
+                    _expertData.value = AllUserState(error = it.message?:"")
+                }
+                is NetworkResult.Success ->{
+                    _expertData.value = AllUserState(data = it.data)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
     fun logOutUser(){
         viewModelScope.launch {
             authRepository.logOutUser()

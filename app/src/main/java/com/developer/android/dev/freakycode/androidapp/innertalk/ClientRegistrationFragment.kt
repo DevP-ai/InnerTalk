@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ClientRegistrationFragment : Fragment() {
     private lateinit var binding: FragmentClientRegistrationBinding
-
+    private val auth=FirebaseAuth.getInstance()
     private val authViewmodel by viewModels<AuthViewmodel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

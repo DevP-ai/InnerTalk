@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TherapistRegistrationFragment : Fragment() {
     private lateinit var binding: FragmentTherapistRegistrationBinding
     private val authViewmodel by viewModels<AuthViewmodel>()
-
+    private val auth=FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

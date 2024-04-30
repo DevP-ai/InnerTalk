@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sf_pro_display_bold"
-        android:text="No Message"
+        android:text="No Message \n From experts list select expert and start talk"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/progress_bar"
         app:layout_constraintEnd_toEndOf="@id/progress_bar"
@@ -47,7 +47,7 @@
         android:gravity="center"
         android:layout_marginTop="40dp"
         android:textColor="@color/gray"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messageRecyclerView"

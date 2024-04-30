@@ -19,7 +19,6 @@ import java.io.IOException
 class AuthRepository {
     private var auth: FirebaseAuth = Firebase.auth
     private var logOutLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    private val db = Firebase.database
     private val fireStoreDatabase = FirebaseFirestore.getInstance()
 
     init {

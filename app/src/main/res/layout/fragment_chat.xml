@@ -42,6 +42,23 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
+
+    <TextView
+        android:id="@+id/noMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_display_bold"
+        android:text="No Conversation yet\nFeel free to discuss your problem"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/toolBar"
+        app:layout_constraintStart_toStartOf="@id/toolBar"
+        app:layout_constraintTop_toBottomOf="@id/toolBar"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/gray"
+        android:textSize="18sp"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"

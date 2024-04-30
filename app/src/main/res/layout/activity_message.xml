@@ -10,7 +10,7 @@
     tools:context=".MessageActivity">
 
     <fragment
-        android:id="@+id/messager_host_fragment"
+        android:id="@+id/message_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:navGraph="@navigation/chat_nav"

@@ -9,12 +9,12 @@ import java.io.IOException
 
 
 class ChatRepository {
-    private var db= FirebaseDatabase.getInstance()
+    private var db= FirebaseDatabase.getInstance("https://innertalk-therapy-default-rtdb.asia-southeast1.firebasedatabase.app/")
    fun sendMessage(
        senderId:String,
        receiverId:String,
        chat: Chat
-   ): Flow<NetworkResult<Unit>> =flow{
+   ): Flow<NetworkResult<Chat>> =flow{
        emit(NetworkResult.Loading())
 
        try {
@@ -26,8 +26,15 @@ class ChatRepository {
                .child("message")
                .child(randomKey)
                .setValue(chat)
+               .addOnCompleteListener {
+                   db.reference.child("Chats")
+                       .child(receiverId)
+                       .child(senderId)
+                       .child("message")
+                       .setValue(chat)
+               }
 
-           emit(NetworkResult.Success(Unit))
+           emit(NetworkResult.Success(chat))
 
        }catch (e: Exception) {
            emit(NetworkResult.Error(e.localizedMessage ?: ""))

@@ -8,7 +8,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.ActivityMessageBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MessageActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMessageBinding
 

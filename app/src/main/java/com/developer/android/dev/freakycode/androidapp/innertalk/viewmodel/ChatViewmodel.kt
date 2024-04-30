@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.Chat
 import com.developer.android.dev.freakycode.androidapp.innertalk.repository.ChatRepository
+import com.developer.android.dev.freakycode.androidapp.innertalk.utils.AllUserState
 import com.developer.android.dev.freakycode.androidapp.innertalk.utils.GetMessageState
 import com.developer.android.dev.freakycode.androidapp.innertalk.utils.SendMessageState
 import com.developer.android.dev.freakycode.androidapp.innertalk.utils.NetworkResult
@@ -24,6 +25,9 @@ class ChatViewmodel @Inject constructor(
 
     private val _getChatData = MutableStateFlow(GetMessageState())
     val getChatData:StateFlow<GetMessageState> = _getChatData
+
+    private val _allChatUser= MutableStateFlow(AllUserState())
+    val allChatUser:StateFlow<AllUserState> = _allChatUser
 
    fun sendMessage(senderId:String,receiverId:String,chat: Chat){
        chatRepository.sendMessage(senderId=senderId,receiverId=receiverId,chat=chat).onEach {
@@ -57,4 +61,20 @@ class ChatViewmodel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
+    fun getAllChatsUser(){
+        chatRepository.getAllChatsUser().onEach {
+            when(it){
+                is NetworkResult.Loading ->{
+                    _allChatUser.value = AllUserState(isLoading = true)
+                }
+                is NetworkResult.Error ->{
+                    _allChatUser.value = AllUserState(error= it.message?:"")
+                }
+
+                is NetworkResult.Success ->{
+                    _allChatUser.value = AllUserState(data = it.data)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
 }

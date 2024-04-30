@@ -25,9 +25,7 @@ class ExpertFragment : Fragment() {
     private lateinit var binding:FragmentExpertBinding
     private val authViewmodel by viewModels<AuthViewmodel>()
     private lateinit var expertsAdapter : ExpertsAdapter
-    private var expertsList:List<User>?=null
-    private val auth=FirebaseAuth.getInstance()
-//    private var expertDataJob: Job? = null
+    private var expertsList:ArrayList<User>?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +59,7 @@ class ExpertFragment : Fragment() {
 
     private fun bindRecyclerView() {
         binding.searchUserRecyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-        expertsAdapter = ExpertsAdapter(expertsList as ArrayList<User>)
+        expertsAdapter = ExpertsAdapter(expertsList!!)
         binding.searchUserRecyclerView.adapter = expertsAdapter
     }
 

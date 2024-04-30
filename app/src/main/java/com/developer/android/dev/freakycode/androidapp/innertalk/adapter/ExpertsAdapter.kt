@@ -8,7 +8,7 @@ import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.Use
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.User
 
 class ExpertsAdapter(
-    private val expertList: List<User>
+    private val expertList: ArrayList<User>
 ) : RecyclerView.Adapter<ExpertsAdapter.ExpertsViewHolder>() {
 
     var onItemClick :((User)->Unit?)?=null

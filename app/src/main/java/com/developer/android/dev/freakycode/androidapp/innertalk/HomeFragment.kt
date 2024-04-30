@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.developer.android.dev.freakycode.androidapp.innertalk.adapter.ExpertsAdapter
 import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentHomeBinding
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.User
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,7 +15,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding:FragmentHomeBinding
 
-    private var messageList:List<User>? = null
+    private lateinit var userAdapter : ExpertsAdapter
+    private var messageList:ArrayList<User>?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,6 +24,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         messageList = ArrayList()
+
         return binding.root
     }
 

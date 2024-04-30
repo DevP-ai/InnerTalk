@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.developer.android.dev.freakycode.androidapp.innertalk.adapter.ChatAdapter
 import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentChatBinding
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.Chat
 import com.developer.android.dev.freakycode.androidapp.innertalk.viewmodel.ChatViewmodel
@@ -22,12 +23,12 @@ class ChatFragment : Fragment() {
     private lateinit var binding:FragmentChatBinding
 
     private val chatViewmodel by viewModels<ChatViewmodel>()
-
+    private lateinit var chatAdapter: ChatAdapter
     private var senderId:String?=""
     private var receiverId:String?=""
     private var receiverName:String?=""
 
-    private lateinit var charList:ArrayList<Chat>
+    private lateinit var chatList:ArrayList<Chat>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,11 +42,8 @@ class ChatFragment : Fragment() {
         receiverName = requireActivity().intent.getStringExtra("name")
 
 
-        charList = ArrayList()
+        chatList = ArrayList()
 
-        if(charList.isEmpty()){
-            binding.noMessage.isVisible = true
-        }
 
         return binding.root
     }
@@ -53,7 +51,10 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        chatViewmodel.getMessage(senderId!!,receiverId!!)
+
         bindObserver()
+        bindSetObserver()
 
         binding.btnSend.setOnClickListener {
             if(binding.edtMessage.text.toString().isNotBlank()){
@@ -65,9 +66,29 @@ class ChatFragment : Fragment() {
         binding.particularUserName.text = receiverName.toString()
     }
 
+    private fun bindSetObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            chatViewmodel.getChatData.collect{
+                chatViewmodel.saveChatData.collect{
+                    if(it.isLoading){
+
+                    }
+                    if(it.error!!.isNotBlank()){
+
+                    }
+
+                    it.data?.let {msg->
+                        chatList.add(msg)
+                         chatAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+    }
+
     private fun bindObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
-            chatViewmodel.setChatData.collect{
+            chatViewmodel.saveChatData.collect{
                 if(it.isLoading){
 
                 }
@@ -85,8 +106,11 @@ class ChatFragment : Fragment() {
     private fun setMessage() {
         val layout = LinearLayoutManager(requireContext())
         binding.messageRecyclerView.layoutManager = layout
-
-
+        if(chatList.isEmpty()){
+            binding.noMessage.isVisible = true
+        }
+        chatAdapter = ChatAdapter(chatList)
+        binding.messageRecyclerView.adapter = chatAdapter
     }
 
     private fun sendMessage() {

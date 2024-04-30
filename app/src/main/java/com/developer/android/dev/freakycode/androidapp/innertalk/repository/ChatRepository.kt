@@ -63,9 +63,7 @@ class ChatRepository {
         emit(NetworkResult.Loading())
 
         try {
-            var refUserId = db.reference.child("Chats")
-                .get().await()
-
+            val refUserId = db.reference.child("Chats").get().await()
 
             val userList = mutableListOf<User>()
 

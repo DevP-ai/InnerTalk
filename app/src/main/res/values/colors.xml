@@ -6,4 +6,5 @@
     <color name="highlight_text_color">#2196F3</color>
     <color name="gray">#D5D4D4</color>
     <color name="red">#DF1515</color>
+    <color name="chat">#87B7BD</color>
 </resources>

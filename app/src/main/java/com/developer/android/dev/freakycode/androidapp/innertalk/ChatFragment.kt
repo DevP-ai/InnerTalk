@@ -44,7 +44,21 @@ class ChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.btnSend.setOnClickListener {
+            if(binding.edtMessage.text.toString().isNotBlank()){
+                sendMessage()
+            }
+        }
 
+        setMessage()
         binding.particularUserName.text = receiverName.toString()
+    }
+
+    private fun setMessage() {
+
+    }
+
+    private fun sendMessage() {
+
     }
 }

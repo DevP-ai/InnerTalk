@@ -97,6 +97,7 @@ class AuthRepository {
 
         try {
             val snapshot = fireStoreDatabase.collection("Users")
+                .whereNotEqualTo("userType","Client")
                 .get()
                 .await()
 

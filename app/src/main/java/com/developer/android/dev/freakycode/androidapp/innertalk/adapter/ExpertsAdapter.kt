@@ -11,6 +11,7 @@ class ExpertsAdapter(
     private val expertList: List<User>
 ) : RecyclerView.Adapter<ExpertsAdapter.ExpertsViewHolder>() {
 
+    var onItemClick :((User)->Unit?)?=null
     inner class ExpertsViewHolder(val binding: UserDesignLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -32,5 +33,9 @@ class ExpertsAdapter(
         val data = expertList[position]
         holder.binding.userProfileName.text = data.name
         holder.binding.userProfileType.text = data.userType
+
+        holder.itemView.setOnClickListener {
+            onItemClick!!.invoke(expertList[position])
+        }
     }
 }

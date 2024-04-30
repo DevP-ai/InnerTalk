@@ -1,5 +1,6 @@
 package com.developer.android.dev.freakycode.androidapp.innertalk
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.developer.android.dev.freakycode.androidapp.innertalk.adapter.Experts
 import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentExpertBinding
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.User
 import com.developer.android.dev.freakycode.androidapp.innertalk.viewmodel.AuthViewmodel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -24,6 +26,7 @@ class ExpertFragment : Fragment() {
     private val authViewmodel by viewModels<AuthViewmodel>()
     private lateinit var expertsAdapter : ExpertsAdapter
     private var expertsList:List<User>?=null
+    private val auth=FirebaseAuth.getInstance()
 //    private var expertDataJob: Job? = null
 
     override fun onCreateView(
@@ -43,7 +46,17 @@ class ExpertFragment : Fragment() {
 
         bindObserver()
         bindRecyclerView()
+        onClickUser()
 
+    }
+
+    private fun onClickUser() {
+        expertsAdapter.onItemClick={
+            val intent = Intent(requireContext(),MessageActivity::class.java)
+            intent.putExtra("id",it.id)
+            intent.putExtra("name",it.name)
+            startActivity(intent)
+        }
     }
 
     private fun bindRecyclerView() {

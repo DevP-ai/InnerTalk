@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentChatBinding
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.Chat
 import com.developer.android.dev.freakycode.androidapp.innertalk.viewmodel.ChatViewmodel
@@ -66,7 +67,7 @@ class ChatFragment : Fragment() {
 
     private fun bindObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
-            chatViewmodel.chatData.collect{
+            chatViewmodel.setChatData.collect{
                 if(it.isLoading){
 
                 }
@@ -82,6 +83,9 @@ class ChatFragment : Fragment() {
     }
 
     private fun setMessage() {
+        val layout = LinearLayoutManager(requireContext())
+        binding.messageRecyclerView.layoutManager = layout
+
 
     }
 

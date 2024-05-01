@@ -19,8 +19,7 @@ import java.io.IOException
 
 
 class ChatRepository {
-    private var db =
-        FirebaseDatabase.getInstance("https://innertalk-therapy-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    private var db = FirebaseDatabase.getInstance("https://innertalk-therapy-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
     private val fireStoreDatabase = FirebaseFirestore.getInstance()
     private var auth: FirebaseAuth = Firebase.auth
@@ -114,7 +113,9 @@ class ChatRepository {
 
             for (snap in snapShot.children) {
                 val chat = snap.getValue(Chat::class.java)
-                chatList.add(chat!!)
+                chat?.let {
+                    chatList.add(it)
+                }
             }
 
             emit(NetworkResult.Success(chatList))

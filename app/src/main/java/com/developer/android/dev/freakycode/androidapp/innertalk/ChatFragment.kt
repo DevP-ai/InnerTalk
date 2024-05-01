@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,15 +21,15 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
-    private lateinit var binding:FragmentChatBinding
+    private lateinit var binding: FragmentChatBinding
 
     private val chatViewmodel by viewModels<ChatViewmodel>()
     private lateinit var chatAdapter: ChatAdapter
-    private var senderId:String?=""
-    private var receiverId:String?=""
-    private var receiverName:String?=""
+    private var senderId: String? = ""
+    private var receiverId: String? = ""
+    private var receiverName: String? = ""
 
-    private lateinit var chatList:ArrayList<Chat>
+    private lateinit var chatList: ArrayList<Chat>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,13 +52,13 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        chatViewmodel.getMessage(senderId!!,receiverId!!)
+        chatViewmodel.getMessage(senderId!!, receiverId!!)
 
         bindObserver()
         bindSetObserver()
 
         binding.btnSend.setOnClickListener {
-            if(binding.edtMessage.text.toString().isNotBlank()){
+            if (binding.edtMessage.text.toString().isNotBlank()) {
                 sendMessage()
             }
         }
@@ -68,19 +69,18 @@ class ChatFragment : Fragment() {
 
     private fun bindSetObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
-            chatViewmodel.getChatData.collect{
-                chatViewmodel.saveChatData.collect{
-                    if(it.isLoading){
+            chatViewmodel.getChatData.collect {
+                if (it.isLoading) {
 
-                    }
-                    if(it.error!!.isNotBlank()){
+                }
+                if (it.error!!.isNotBlank()) {
+                    Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                }
 
-                    }
-
-                    it.data?.let {msg->
-                        chatList.add(msg)
-                         chatAdapter.notifyDataSetChanged()
-                    }
+                it.data?.let { msg ->
+                    chatList.clear()
+                    chatList.addAll(msg)
+                    chatAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -88,11 +88,11 @@ class ChatFragment : Fragment() {
 
     private fun bindObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
-            chatViewmodel.saveChatData.collect{
-                if(it.isLoading){
+            chatViewmodel.saveChatData.collect {
+                if (it.isLoading) {
 
                 }
-                if(it.error!!.isNotBlank()){
+                if (it.error!!.isNotBlank()) {
 
                 }
 
@@ -106,20 +106,17 @@ class ChatFragment : Fragment() {
     private fun setMessage() {
         val layout = LinearLayoutManager(requireContext())
         binding.messageRecyclerView.layoutManager = layout
-        if(chatList.isEmpty()){
-            binding.noMessage.isVisible = true
-        }
         chatAdapter = ChatAdapter(chatList)
         binding.messageRecyclerView.adapter = chatAdapter
     }
 
     private fun sendMessage() {
-        val chat =Chat(
+        val chat = Chat(
             senderId = senderId,
             receiverId = receiverId,
             message = binding.edtMessage.text.toString()
         )
 
-        chatViewmodel.sendMessage(senderId!!,receiverId!!,chat)
+        chatViewmodel.sendMessage(senderId!!, receiverId!!, chat)
     }
 }

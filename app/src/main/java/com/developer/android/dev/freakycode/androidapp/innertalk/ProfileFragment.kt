@@ -26,7 +26,7 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val authViewmodel by viewModels<AuthViewmodel>()
-//    private var userDataJob: Job? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

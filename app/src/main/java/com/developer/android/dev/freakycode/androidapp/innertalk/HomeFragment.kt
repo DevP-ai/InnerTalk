@@ -44,8 +44,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
 
-
-
         return binding.root
     }
 
@@ -108,50 +106,6 @@ class HomeFragment : Fragment() {
 
         })
     }
-
-
-//    private fun retrieveAllUsers() {
-//        val refUserId = db.getReference("Chats")
-//        binding.progressBar.isVisible = true
-//        refUserId.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                binding.progressBar.isVisible = false
-//                if (snapshot.exists()) {
-//                    for (snap in snapshot.children) {
-//                        if (snap.hasChild(auth.currentUser!!.uid)) {
-//                            val otherUserId = snap.key
-//
-//                            otherUserId?.let {
-//                                binding.progressBar.isVisible = false
-//                                fireStoreDatabase.collection("Users")
-//                                    .document(otherUserId).get()
-//                                    .addOnSuccessListener { userSnapshot ->
-//                                        if (userSnapshot.exists()) {
-//                                            val user = userSnapshot.toObject(User::class.java)
-//                                            user?.let {
-//                                                users.add(it)
-//                                            }
-//                                        }
-//                                        homeAdapter.notifyDataSetChanged()
-//                                        onClickUser()
-//
-//                                    }
-//                            }
-//
-//                        }
-//                    }
-//
-//                }
-//
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                binding.progressBar.isVisible = false
-//            }
-//
-//        })
-//    }
-
     private fun onClickUser() {
         homeAdapter.onItemClick = {
             val intent = Intent(context, MessageActivity::class.java)

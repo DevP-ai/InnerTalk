@@ -97,7 +97,6 @@ class AuthRepository {
 
     fun getAllExperts():Flow<NetworkResult<List<User>>> = flow {
         emit(NetworkResult.Loading())
-//            .whereNotEqualTo("userType","Client")
         try {
             val snapshot = fireStoreDatabase.collection("Users")
                 .whereNotEqualTo("id",auth.currentUser!!.uid)

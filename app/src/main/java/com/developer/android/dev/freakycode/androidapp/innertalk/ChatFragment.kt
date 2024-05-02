@@ -27,11 +27,7 @@ import java.util.Date
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
     private lateinit var binding: FragmentChatBinding
-
     private var db = FirebaseDatabase.getInstance("https://innertalk-therapy-default-rtdb.asia-southeast1.firebasedatabase.app/")
-
-
-//    private val chatViewmodel by viewModels<ChatViewmodel>()
     private lateinit var chatAdapter: ChatAdapter
     private var senderId: String? = ""
     private var receiverId: String? = ""
@@ -50,32 +46,22 @@ class ChatFragment : Fragment() {
         receiverId = requireActivity().intent.getStringExtra("id")
         receiverName = requireActivity().intent.getStringExtra("name")
 
-
-//        chatList = ArrayList()
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        bindSetObserver()
-//        bindObserver()
         chatList = ArrayList()
-
-
 
         binding.btnSend.setOnClickListener {
             if (binding.edtMessage.text.toString().isNotBlank()) {
-//                sendMessage()
                 saveMessage()
             }
         }
 
         showMessage()
         chatAdapter =ChatAdapter(chatList)
-//        setMessage()
         binding.particularUserName.text = receiverName.toString()
     }
 
@@ -131,71 +117,5 @@ class ChatFragment : Fragment() {
                 }
             }
     }
-
-
-
-
-//    private fun bindSetObserver() {
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            chatViewmodel.getChatData.collect {
-//                if (it.isLoading) {
-//
-//                }
-//                if (it.error!!.isNotBlank()) {
-//                    Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-//                }
-//
-//                it.data?.let { msg ->
-//                    chatList.clear()
-//                    chatList.addAll(msg)
-//                    chatAdapter.notifyDataSetChanged()
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun bindObserver() {
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            chatViewmodel.saveChatData.collect {
-//                if (it.isLoading) {
-//
-//                }
-//                if (it.error!!.isNotBlank()) {
-//
-//                }
-//
-//                it.data?.let {
-//                    binding.edtMessage.setText("")
-//                    chatList.addAll(listOf(it))
-//                    chatAdapter.notifyDataSetChanged()
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun setMessage() {
-//        senderId?.let {
-//            receiverId?.let { it1 ->
-//                chatViewmodel.getMessage(it, it1)
-//                chatViewmodel.getMessage(it1, it)
-//            }
-//        }
-//        val layout = LinearLayoutManager(requireContext())
-//        chatAdapter = ChatAdapter(chatList)
-//        binding.messageRecyclerView.apply {
-//            this.layoutManager = layout
-//            adapter = chatAdapter
-//        }
-//    }
-//
-//    private fun sendMessage() {
-//        val chat = Chat(
-//            senderId = senderId,
-//            receiverId = receiverId,
-//            message = binding.edtMessage.text.toString()
-//        )
-//
-//        chatViewmodel.sendMessage(senderId!!, receiverId!!, chat)
-//    }
 
 }

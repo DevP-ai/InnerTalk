@@ -99,48 +99,6 @@ class ChatRepository {
             })
     }
 
-//    fun getAllChatsUser(): Flow<NetworkResult<List<User>>> = flow {
-//        emit(NetworkResult.Loading())
-//
-//        try {
-//            val refUserId = db.reference.child("Chats").get().await()
-//
-//            val userList = mutableListOf<User>()
-//
-//            if (refUserId.exists()) {
-//                for (snap in refUserId.children) {
-//                    if (snap.hasChild(auth.currentUser!!.uid)) {
-//                        val otherUserId = snap.key
-//                        if (otherUserId != null) {
-//                            val snapshot = fireStoreDatabase.collection("Users")
-//                                .document(otherUserId).get().await()
-//
-//                            if (snapshot.exists()) {
-//                                val otherUser = snapshot.toObject(User::class.java)
-//                                otherUser?.let {
-//                                    userList.add(it)
-//                                }
-//                            }
-//
-//                        }
-//                    }
-//                }
-//            }
-//            emit(NetworkResult.Success(data = userList.toList()))
-//
-//        } catch (e: IOException) {
-//            emit(
-//                NetworkResult.Error(
-//                    message = e.localizedMessage ?: "Check Your Internet Connection"
-//                )
-//            )
-//        } catch (e: Exception) {
-//            emit(NetworkResult.Error(e.localizedMessage ?: ""))
-//        }
-//    }
-
-
-
     fun getMessage(
         senderId: String,
         receiverId: String

@@ -74,20 +74,4 @@ class ChatViewmodel @Inject constructor(
         }
     }
 
-//    fun getAllChatsUser(){
-//        chatRepository.getAllChatsUser().onEach {
-//            when(it){
-//                is NetworkResult.Loading ->{
-//                    _allChatUser.value = AllUserState(isLoading = true)
-//                }
-//                is NetworkResult.Error ->{
-//                    _allChatUser.value = AllUserState(error= it.message?:"")
-//                }
-//
-//                is NetworkResult.Success ->{
-//                    _allChatUser.value = AllUserState(data = it.data)
-//                }
-//            }
-//        }.launchIn(viewModelScope)
-//    }
 }

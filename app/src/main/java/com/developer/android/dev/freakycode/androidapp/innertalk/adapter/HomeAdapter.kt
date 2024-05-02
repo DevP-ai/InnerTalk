@@ -7,10 +7,10 @@ import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.Use
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.User
 
 class HomeAdapter(
-    private val userList: ArrayList<User>
+    private val userList: List<User>
 ) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
-    var onItemClick :((User)->Unit?)?=null
+    lateinit var onItemClick :((User)->Unit?)
     inner class HomeViewHolder(val binding: UserListBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -33,7 +33,7 @@ class HomeAdapter(
         holder.binding.profileName.text = userList[position].name
 
         holder.itemView.setOnClickListener {
-            onItemClick!!.invoke(userList[position])
+            onItemClick.invoke(userList[position])
         }
     }
 }

@@ -12,12 +12,17 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MessageActivity : AppCompatActivity() {
-    private lateinit var binding:ActivityMessageBinding
-
+    private var _binding:ActivityMessageBinding?=null
+    private val binding get() =  _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityMessageBinding.inflate(layoutInflater)
+        _binding=ActivityMessageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

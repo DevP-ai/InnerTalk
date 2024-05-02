@@ -17,7 +17,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TherapistRegistrationFragment : Fragment() {
-    private lateinit var binding: FragmentTherapistRegistrationBinding
+    private var _binding: FragmentTherapistRegistrationBinding?=null
+    private val binding get() = _binding!!
+
     private val authViewmodel by viewModels<AuthViewmodel>()
     private val auth=FirebaseAuth.getInstance()
 
@@ -26,7 +28,7 @@ class TherapistRegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentTherapistRegistrationBinding.inflate(layoutInflater)
+        _binding = FragmentTherapistRegistrationBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -65,16 +67,14 @@ class TherapistRegistrationFragment : Fragment() {
             viewLifecycleOwner,
             binding.progressBar
         ){
-            startActivity(Intent(requireActivity(),HostActivity::class.java))
+            startActivity(Intent(requireActivity(),NavHostActivity::class.java))
             requireActivity().finish()
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 
     override fun onDestroy() {
         super.onDestroy()
+        _binding = null
     }
 }

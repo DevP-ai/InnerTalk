@@ -22,14 +22,16 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
-    private lateinit var binding:FragmentProfileBinding
+    private var _binding:FragmentProfileBinding?=null
+    private val binding get() = _binding!!
+
     private val authViewmodel by viewModels<AuthViewmodel>()
 //    private var userDataJob: Job? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProfileBinding.inflate(layoutInflater)
+        _binding = FragmentProfileBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -92,15 +94,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-//       viewLifecycleOwner.lifecycleScope.launch {
-//
-//        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
-
+        _binding = null
     }
 }

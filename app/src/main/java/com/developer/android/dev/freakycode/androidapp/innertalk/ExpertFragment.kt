@@ -22,7 +22,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExpertFragment : Fragment() {
-    private lateinit var binding:FragmentExpertBinding
+    private var _binding:FragmentExpertBinding?=null
+    private val binding get() = _binding!!
+
     private val authViewmodel by viewModels<AuthViewmodel>()
     private lateinit var expertsAdapter : ExpertsAdapter
     private var expertsList:ArrayList<User>?=null
@@ -31,7 +33,7 @@ class ExpertFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentExpertBinding.inflate(layoutInflater)
+        _binding = FragmentExpertBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         expertsList = ArrayList()
         return binding.root
@@ -83,15 +85,9 @@ class ExpertFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-//        viewLifecycleOwner.lifecycleScope.launch {
-//
-//        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
-
+        _binding = null
     }
 }

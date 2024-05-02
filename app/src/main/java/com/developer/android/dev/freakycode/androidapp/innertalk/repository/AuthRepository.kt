@@ -36,10 +36,12 @@ class AuthRepository {
 
         try {
             val result = auth.createUserWithEmailAndPassword(email, password).await()
+
             user.id = auth.currentUser!!.uid
             fireStoreDatabase.collection("Users")
                 .document(auth.currentUser!!.uid)
-                .set(user)
+                .set(user).await()
+
             emit(result.user?.let {
                 NetworkResult.Success(it)
             }!!)
@@ -57,6 +59,7 @@ class AuthRepository {
 
         try {
             val result = auth.signInWithEmailAndPassword(email, password).await()
+
             emit(result.user?.let {
                 NetworkResult.Success(it)
             }!!)

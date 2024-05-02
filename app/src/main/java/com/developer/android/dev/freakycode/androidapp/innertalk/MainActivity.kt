@@ -16,17 +16,19 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private  var _binding: ActivityMainBinding?=null
+    private val binding get() = _binding!!
+
     private lateinit var fragmentAdapter: FragmentViewPagerAdapter
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
 
         enableEdgeToEdge()
 
-        setContentView(binding.root)
+        setContentView(binding!!.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -38,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         if(auth.currentUser!=null){
-            startActivity(Intent(this,HostActivity::class.java))
+            startActivity(Intent(this,NavHostActivity::class.java))
             finish()
         }
 
@@ -73,5 +75,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

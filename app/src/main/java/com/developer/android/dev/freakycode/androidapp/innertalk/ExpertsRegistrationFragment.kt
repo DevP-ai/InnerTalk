@@ -1,14 +1,14 @@
 package com.developer.android.dev.freakycode.androidapp.innertalk
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentTherapistRegistrationBinding
+import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentExpertBinding
+import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentExpertsRegistrationBinding
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.User
 import com.developer.android.dev.freakycode.androidapp.innertalk.utils.AuthUtils
 import com.developer.android.dev.freakycode.androidapp.innertalk.viewmodel.AuthViewmodel
@@ -16,8 +16,9 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TherapistRegistrationFragment : Fragment() {
-    private var _binding: FragmentTherapistRegistrationBinding?=null
+class ExpertsRegistrationFragment : Fragment() {
+
+    private var _binding: FragmentExpertsRegistrationBinding?=null
     private val binding get() = _binding!!
 
     private val authViewmodel by viewModels<AuthViewmodel>()
@@ -28,7 +29,7 @@ class TherapistRegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentTherapistRegistrationBinding.inflate(layoutInflater)
+        _binding = FragmentExpertsRegistrationBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         return binding.root
     }

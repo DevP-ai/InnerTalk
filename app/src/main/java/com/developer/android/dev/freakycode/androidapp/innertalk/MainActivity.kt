@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
 
-        setContentView(binding!!.root)
+        setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        //Check User login or not
         auth = FirebaseAuth.getInstance()
 
         if(auth.currentUser!=null){
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         fragmentAdapter = FragmentViewPagerAdapter(supportFragmentManager,lifecycle)
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Client"))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Therapist"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Experts"))
 
         binding.viewPager.adapter = fragmentAdapter
 

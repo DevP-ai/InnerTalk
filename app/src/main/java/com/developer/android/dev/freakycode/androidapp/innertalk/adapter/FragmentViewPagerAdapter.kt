@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.developer.android.dev.freakycode.androidapp.innertalk.ClientRegistrationFragment
-import com.developer.android.dev.freakycode.androidapp.innertalk.TherapistRegistrationFragment
+import com.developer.android.dev.freakycode.androidapp.innertalk.ExpertsRegistrationFragment
 
 class FragmentViewPagerAdapter(
     fragmentManager: FragmentManager,
@@ -19,6 +19,6 @@ class FragmentViewPagerAdapter(
         return if (position == 0)
             ClientRegistrationFragment()
         else
-            TherapistRegistrationFragment()
+            ExpertsRegistrationFragment()
     }
 }

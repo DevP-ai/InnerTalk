@@ -11,7 +11,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class NetworkModule{
-
     @Provides
     @Singleton
     fun provideAuthRepository()= AuthRepository()

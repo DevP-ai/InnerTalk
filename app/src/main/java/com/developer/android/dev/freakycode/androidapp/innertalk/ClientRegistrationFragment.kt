@@ -6,25 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentClientRegistrationBinding
-import com.developer.android.dev.freakycode.androidapp.innertalk.databinding.FragmentTherapistRegistrationBinding
 import com.developer.android.dev.freakycode.androidapp.innertalk.model.User
 import com.developer.android.dev.freakycode.androidapp.innertalk.utils.AuthUtils
 import com.developer.android.dev.freakycode.androidapp.innertalk.viewmodel.AuthViewmodel
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ClientRegistrationFragment : Fragment() {
     private var _binding: FragmentClientRegistrationBinding?=null
     private val binding get() = _binding!!
 
-    private val auth=FirebaseAuth.getInstance()
     private val authViewmodel by viewModels<AuthViewmodel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

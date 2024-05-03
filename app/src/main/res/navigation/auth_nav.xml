@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_client_registration" />
     <fragment
         android:id="@+id/therapistRegistrationFragment"
-        android:name="com.developer.android.dev.freakycode.androidapp.innertalk.TherapistRegistrationFragment"
+        android:name="com.developer.android.dev.freakycode.androidapp.innertalk.ExpertsRegistrationFragment"
         android:label="fragment_therapist_registration"
-        tools:layout="@layout/fragment_therapist_registration" />
+        tools:layout="@layout/fragment_experts_registration" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.developer.android.dev.freakycode.androidapp.innertalk.LoginFragment"
